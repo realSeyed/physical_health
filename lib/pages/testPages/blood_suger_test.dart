@@ -1,9 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:physical_health/models/models.dart';
-import 'package:physical_health/widgets/submitButton.dart';
-import 'package:physical_health/widgets/testTextField.dart';
+
+import '../../utils/physical_health_tests.dart';
+import '../../widgets/submit_button.dart';
+import '../../widgets/test_text_field.dart';
 
 class BloodSugerTestPage extends StatefulWidget {
   const BloodSugerTestPage({super.key});
@@ -71,9 +72,7 @@ class _BloodSugerTestPageState extends State<BloodSugerTestPage> {
             showDialog(
               context: context,
               builder: (context) {
-                // get BloodSugerTest instance for get test resualt
-                BloodSugerTest test = BloodSugerTest(
-                  // give value from textfield value
+                final result = PhysicalHealthTests.instance.bloodSugerTest(
                   bloodSuger: double.parse(controller.text),
                 );
 
@@ -87,12 +86,12 @@ class _BloodSugerTestPageState extends State<BloodSugerTestPage> {
                     children: [
                       // Bmi resualt
                       Text(
-                        test.bloodSugerTest,
+                        result.toString(),
                         textDirection: TextDirection.rtl,
                         style: TextStyle(
                           color: theme.onBackground,
                           fontSize: 25.0,
-                          fontWeight: FontWeight.w700,
+                          fontVariations: const [FontVariation("wght", 700)],
                         ),
                       ),
                       // resualt title
@@ -102,7 +101,7 @@ class _BloodSugerTestPageState extends State<BloodSugerTestPage> {
                         style: TextStyle(
                           color: theme.onBackground,
                           fontSize: 25.0,
-                          fontWeight: FontWeight.w700,
+                          fontVariations: const [FontVariation("wght", 700)],
                         ),
                       ),
                     ],

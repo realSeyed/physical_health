@@ -2,11 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-import 'package:physical_health/models/models.dart';
-
-import 'package:physical_health/widgets/show_resault.dart';
-import 'package:physical_health/widgets/submitButton.dart';
-import 'package:physical_health/widgets/customTextField.dart';
+import '../../utils/physical_health_tests.dart';
+import '../../widgets/custom_text_field.dart';
+import '../../widgets/show_resault.dart';
+import '../../widgets/submit_button.dart';
 
 class BloodTestPage extends StatefulWidget {
   const BloodTestPage({super.key});
@@ -59,7 +58,7 @@ class _BloodTestPageState extends State<BloodTestPage> {
     );
   }
 
-  Row metrics(ColorScheme theme) {
+  Widget metrics(ColorScheme theme) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -152,14 +151,28 @@ class _BloodTestPageState extends State<BloodTestPage> {
             showDialog(
               context: context,
               builder: (context) {
-                // get instance from blood test class
-                BloodTest bloodTest = BloodTest(
-                  isMale: radioValue == 1 ? true : false,
-                  hemoglobin: double.parse(hemoglobinController.text),
-                  bloodCellsNumbers:
-                      double.parse(bloodCellsNumbersController.text),
-                  bloodPromissoryNote:
-                      double.parse(bloodPromissoryNoteController.text),
+                final isMale = radioValue == 0 ? false : true;
+                final hemoglobin = double.parse(hemoglobinController.text);
+                final bloodPromissoryNote =
+                    double.parse(bloodPromissoryNoteController.text);
+                final bloodCellsNumbers =
+                    double.parse(bloodCellsNumbersController.text);
+
+                final hemoglobinResult =
+                    PhysicalHealthTests.instance.hemoglobinTest(
+                  isMale: isMale,
+                  hemoglobin: hemoglobin,
+                );
+
+                final bloodTestResult =
+                    PhysicalHealthTests.instance.bloodPromissoryNoteTest(
+                  bloodPromissoryNote: bloodPromissoryNote,
+                );
+
+                final bloodCellsNumbersTestResult =
+                    PhysicalHealthTests.instance.bloodCellsNumbersTest(
+                  isMale: isMale,
+                  bloodCellsNumbers: bloodCellsNumbers,
                 );
 
                 return AlertDialog(
@@ -171,15 +184,15 @@ class _BloodTestPageState extends State<BloodTestPage> {
                     children: [
                       ShowResualt(
                         title: "هموگلبین",
-                        resualt: bloodTest.hemoglobinTest,
+                        resualt: hemoglobinResult.toString(),
                       ),
                       ShowResualt(
                         title: "سفته خون",
-                        resualt: bloodTest.bloodPromissoryNoteTest,
+                        resualt: bloodTestResult.toString(),
                       ),
                       ShowResualt(
                         title: "تعداد سلول های خونی",
-                        resualt: bloodTest.bloodCellsNumbersTest,
+                        resualt: bloodCellsNumbersTestResult.toString(),
                       ),
                     ],
                   ),

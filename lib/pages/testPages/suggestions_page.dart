@@ -1,8 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:physical_health/models/suggestion.dart';
-import 'package:physical_health/widgets/suggestion_list_tile.dart';
+
+import '../../models/suggestion_model.dart';
+import '../../widgets/suggestion_list_tile.dart';
 
 class SuggestionsPage extends StatefulWidget {
   const SuggestionsPage({super.key});
@@ -31,9 +32,9 @@ class _SuggestionsPageState extends State<SuggestionsPage> {
         child: ListView.separated(
           primary: true,
           shrinkWrap: true,
-          itemCount: suggestions.length,
+          itemCount: Suggestion.suggestions.length,
           itemBuilder: (context, index) {
-            Suggestion suggestion = suggestions[index];
+            Suggestion suggestion = Suggestion.suggestions[index];
             return SuggestionListTile(suggestion: suggestion);
           },
           separatorBuilder: (context, index) => const SizedBox(height: 15.0),

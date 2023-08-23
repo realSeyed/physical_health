@@ -1,8 +1,10 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:physical_health/models/suggestion.dart';
+
+import '../models/suggestion_model.dart';
 import 'suggestion_page.dart';
-import 'dart:ui';
 
 class SuggestionListTile extends StatelessWidget {
   final Suggestion suggestion;

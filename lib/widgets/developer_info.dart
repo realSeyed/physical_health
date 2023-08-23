@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:ui';
+
+import 'package:flutter/material.dart';
 
 class DeveloperInfo extends StatelessWidget {
   final String imagePath, name, description;

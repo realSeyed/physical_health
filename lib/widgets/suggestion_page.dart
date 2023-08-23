@@ -1,7 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:physical_health/models/suggestion.dart';
+
+import '../models/suggestion_model.dart';
 
 class SuggestionPage extends StatelessWidget {
   final Suggestion suggestion;

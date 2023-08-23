@@ -1,7 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:physical_health/widgets/developer_info.dart';
+
+import '../widgets/developer_info.dart';
 
 class AboutUsPage extends StatelessWidget {
   const AboutUsPage({super.key});

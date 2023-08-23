@@ -2,9 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-import 'package:physical_health/models/bmi_calculator.dart';
-import 'package:physical_health/widgets/submitButton.dart';
-import 'package:physical_health/widgets/testTextField.dart';
+import '../../utils/physical_health_tests.dart';
+import '../../widgets/submit_button.dart';
+import '../../widgets/test_text_field.dart';
 
 class BmiTestPage extends StatefulWidget {
   const BmiTestPage({super.key});
@@ -160,12 +160,12 @@ class _BmiTestPageState extends State<BmiTestPage> {
                 final result;
 
                 if (radioValue == 1) {
-                  result = bmiCalculator(
+                  result = PhysicalHealthTests.instance.bmiTest(
                     wg: double.parse(weightController.text),
                     hg: double.parse(heightController.text),
                   );
                 } else {
-                  result = bmiCalculator(
+                  result = PhysicalHealthTests.instance.bmiTest(
                     wg: double.parse(weightController.text),
                     hg: double.parse(heightController.text) / 100,
                   );
@@ -194,11 +194,11 @@ class _BmiTestPageState extends State<BmiTestPage> {
                       // for over flow i wraped it on Expanded
                       Expanded(
                         child: Text(
-                          "$result(${humanReadableResult(getBmiStatus(result))})",
+                          "$result(${humanReadableResult(result)})",
                           overflow: TextOverflow.ellipsis,
                           textDirection: TextDirection.rtl,
                           style: TextStyle(
-                            color: getResultColor(getBmiStatus(result)),
+                            color: getResultColor(result),
                             fontSize: 20.0,
                             fontVariations: const [FontVariation("wght", 600)],
                           ),
@@ -216,43 +216,30 @@ class _BmiTestPageState extends State<BmiTestPage> {
   }
 }
 
-enum BmiStatus { lessThanNormal, normal, aboveTheLimit, warning }
-
-BmiStatus getBmiStatus(double bmi) {
-  if (bmi < 18.5) {
-    return BmiStatus.lessThanNormal;
-  } else if (bmi >= 18.5 && bmi <= 24.99) {
-    return BmiStatus.normal;
-  } else if (bmi >= 25.0 && bmi <= 29.99) {
-    return BmiStatus.aboveTheLimit;
-  }
-  return BmiStatus.warning;
-}
-
-Color getResultColor(BmiStatus status) {
+Color getResultColor(TestStatus status) {
   switch (status) {
-    case BmiStatus.lessThanNormal:
+    case TestStatus.lessThanNormal:
       return Colors.red;
-    case BmiStatus.normal:
+    case TestStatus.normal:
       return Colors.green;
-    case BmiStatus.aboveTheLimit:
+    case TestStatus.acceptable:
       return Colors.orange;
-    case BmiStatus.warning:
+    case TestStatus.aboveTheLimit:
       return Colors.red;
     default:
       return Colors.black;
   }
 }
 
-String humanReadableResult(BmiStatus status) {
+String humanReadableResult(TestStatus status) {
   switch (status) {
-    case BmiStatus.lessThanNormal:
+    case TestStatus.lessThanNormal:
       return "لاغر";
-    case BmiStatus.normal:
+    case TestStatus.normal:
       return "متعادل";
-    case BmiStatus.aboveTheLimit:
+    case TestStatus.acceptable:
       return "اضافه وزن";
-    case BmiStatus.warning:
+    default:
       return "چاق";
   }
 }

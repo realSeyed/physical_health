@@ -1,15 +1,14 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-
-import 'package:page_transition/page_transition.dart';
-import 'package:physical_health/pages/about_us_page.dart';
-import 'package:physical_health/pages/testPages/blood_suger_test.dart';
-import 'package:physical_health/pages/testPages/blood_test.dart';
-import 'package:physical_health/pages/testPages/bmi_test.dart';
-import 'package:physical_health/pages/testPages/suggestions_page.dart';
-
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:page_transition/page_transition.dart';
+
+import 'about_us_page.dart';
+import 'testPages/blood_suger_test.dart';
+import 'testPages/blood_test.dart';
+import 'testPages/bmi_test.dart';
+import 'testPages/suggestions_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
