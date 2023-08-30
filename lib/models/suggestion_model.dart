@@ -1,9 +1,11 @@
 class Suggestion {
   final String title, description;
   Suggestion({required this.title, required this.description});
+
   @override
   String toString() => 'Suggestion(title: $title, description: $description)';
 
+  /// A list of smaple [Suggestion]
   static List<Suggestion> suggestions = [
     Suggestion(
       title: "رژیم غذایی سالم بخورید",
